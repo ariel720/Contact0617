@@ -43,12 +43,18 @@ public class MemberUpdate extends AppCompatActivity {
         final String addr = arr[5];
         final String phone = arr[3];
 
-
         et_email.setHint(email);
         et_email.setText(email);
         et_name.setHint(name);
         et_phone.setHint(phone);
         et_addr.setHint(addr);
+
+        final MainActivity.Member m = new MainActivity.Member();
+        m.email = (et_email.getText().toString().equals(""))? email : et_email.getText().toString();
+        m.name = (et_email.getText().toString().equals(""))? name : et_name.getText().toString();
+        m.phone = (et_email.getText().toString().equals(""))? phone : et_phone.getText().toString();
+        m.addr = (et_email.getText().toString().equals(""))? addr : et_addr.getText().toString();
+
 
         int profile = getResources().getIdentifier(this.getPackageName()+":drawable/"+arr[4],null,null);
         iv_photo.setImageDrawable(getResources().getDrawable(profile,context.getTheme()));
@@ -65,13 +71,10 @@ public class MemberUpdate extends AppCompatActivity {
             public void onClick(View v) {
                 final doUpdate update = new doUpdate(context);
 
-                email =(et_email.getText().toString().equals(""))? email : et_email.getText().toString();
-                //모바일에서는 삼항연산자쓰기.
-
                 new MainActivity.UpdateService() {
                    @Override
                    public void perform() {
-                       update.execute(name,email,phone,addr,seq);
+                       update.execute(m.name,m.email,m.phone,m.addr,seq);
                    }
                };
             }
