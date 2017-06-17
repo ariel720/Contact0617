@@ -58,10 +58,8 @@ public class MemberDetail extends AppCompatActivity {
         tv_email.setText(m.email);
         tv_phone.setText(m.phone);
         tv_addr.setText(m.addr);
-
         
-
-        int profile = getResources().getIdentifier(this.getPackageName()+":drawable/nullprofile",null,null);
+        int profile = getResources().getIdentifier(this.getPackageName()+":drawable/"+m.photo,null,null);
         iv_photo.setImageDrawable(getResources().getDrawable(profile,context.getTheme()));
 
         findViewById(R.id.btn_call).setOnClickListener(new View.OnClickListener() {
