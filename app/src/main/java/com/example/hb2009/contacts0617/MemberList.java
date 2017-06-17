@@ -1,6 +1,7 @@
 package com.example.hb2009.contacts0617;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -44,18 +45,27 @@ public class MemberList extends AppCompatActivity {
             }
         }.perform();
 
-        ListView listView= (ListView) findViewById(R.id.listView);
+        final ListView listView= (ListView) findViewById(R.id.listView);
         listView.setAdapter(new MemberAdapter(context,list));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClick(AdapterView<?> p, View v, int i, long l) {
+                Intent intent = new Intent(context,MemberDetail.class);
+                MainActivity.Member m = (MainActivity.Member) listView.getItemAtPosition(i);
+                
+                intent.putExtra("seq",m.seq);
+                intent.putExtra("seq",m.name);
+                intent.putExtra("seq",m.email);
+                intent.putExtra("seq",m.addr);
+                intent.putExtra("seq",m.phone);
+                intent.putExtra("seq",m.photo);
+                startActivity(intent);
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> p, View v, int i, long l) {
                 return false;
             }
         });
