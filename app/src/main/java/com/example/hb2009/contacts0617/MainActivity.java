@@ -143,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
         }
         public boolean execute(String seq,String password){
             return super
-                    .getDB()
-                    .rawQuery(String.format("SELECT password FROM %s WHERE %s = '%s' AND %s = '%s'",
-                            MEMBER_TABLE,MEMBER_SEQ,seq,MEMBER_PASSWORD,password),null)
-                    .moveToNext();
+                .getDB()
+                .rawQuery(String.format("SELECT password FROM %s WHERE %s = '%s' AND %s = '%s'",
+                        MEMBER_TABLE,MEMBER_SEQ,seq,MEMBER_PASSWORD,password),null)
+                .moveToNext();
         }
     }
 
