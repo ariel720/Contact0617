@@ -1,6 +1,7 @@
 package com.example.hb2009.contacts0617;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class MemberList extends AppCompatActivity {
         final Context context=MemberList.this;
        final getList getlist = new getList(context);
 
+<<<<<<< HEAD
         ListView listView= (ListView) findViewById(R.id.listView);
         listView.setAdapter(new MemberAdapter(context,
                 (ArrayList<MainActivity.Member>)new ListService() {
@@ -46,21 +48,43 @@ public class MemberList extends AppCompatActivity {
                     }
                 }.perform()
         ));
+=======
+        ArrayList<MainActivity.Member> list =(ArrayList<MainActivity.Member>)new ListService() {
+            @Override
+            public ArrayList<?> perform() {
+                return getlist.execute();
+            }
+        }.perform();
+
+        final ListView listView= (ListView) findViewById(R.id.listView);
+        listView.setAdapter(new MemberAdapter(context,list));
+>>>>>>> ariel0617
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> p, View v, int i, long l) {
+                Intent intent = new Intent(context,MemberDetail.class);
+                MainActivity.Member m = (MainActivity.Member) listView.getItemAtPosition(i);
 
+                intent.putExtra("seq",m.seq);
+                intent.putExtra("seq",m.name);
+                intent.putExtra("seq",m.email);
+                intent.putExtra("seq",m.addr);
+                intent.putExtra("seq",m.phone);
+                intent.putExtra("seq",m.photo);
+
+                startActivity(intent);
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> p, View v, int i, long l) {
                 return false;
             }
         });
     }
 
+    //1.main에서 만들었던 그 sqlite db를 가져오고 있음.
     private abstract class ListQuery extends MainActivity.QueryFactory{
         MainActivity.mySQLiteHelper helper;
         public ListQuery(Context context) {
