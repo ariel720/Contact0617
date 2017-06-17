@@ -28,7 +28,7 @@ import static com.example.hb2009.contacts0617.MainActivity.MEMBER_SEQ;
 import static com.example.hb2009.contacts0617.MainActivity.MEMBER_TABLE;
 
 public class MemberList extends AppCompatActivity {
-    interface ListService{public  ArrayList<?> perform();}
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class MemberList extends AppCompatActivity {
         final Context context=MemberList.this;
        final getList getlist = new getList(context);
 
-        ArrayList<MainActivity.Member> list =(ArrayList<MainActivity.Member>)new ListService() {
+        ArrayList<MainActivity.Member> list =(ArrayList<MainActivity.Member>)new MainActivity.ListService() {
             @Override
             public ArrayList<?> perform() {
                 return getlist.execute();
@@ -54,13 +54,7 @@ public class MemberList extends AppCompatActivity {
                 Intent intent = new Intent(context,MemberDetail.class);
                 MainActivity.Member m = (MainActivity.Member) listView.getItemAtPosition(i);
 
-                intent.putExtra("seq",m.seq);
-                intent.putExtra("seq",m.name);
-                intent.putExtra("seq",m.email);
-                intent.putExtra("seq",m.addr);
-                intent.putExtra("seq",m.phone);
-                intent.putExtra("seq",m.photo);
-
+                intent.putExtra("seq",String.valueOf(m.seq));
                 startActivity(intent);
             }
         });

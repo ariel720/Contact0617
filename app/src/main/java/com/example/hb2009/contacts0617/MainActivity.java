@@ -24,19 +24,22 @@ public class MainActivity extends AppCompatActivity {
         public abstract SQLiteDatabase getDB();
     }
 
-    public final static String DB_NAME = "ariel.db";
-    public final static String MEMBER_TABLE = "Members";
-    public final static String MEMBER_SEQ = "seq";
-    public final static String MEMBER_NAME = "name";
-    public final static String MEMBER_PASSWORD = "password";
-    public final static String MEMBER_PHONE = "phone";
-    public final static String MEMBER_EMAIL = "email";
-    public final static String MEMBER_ADDRESS = "address";
-    public final static String MEMBER_PHOTO = "photo";
+     static String DB_NAME = "ariel.db";
+     static String MEMBER_TABLE = "Members";
+     static String MEMBER_SEQ = "seq";
+     static String MEMBER_NAME = "name";
+     static String MEMBER_PASSWORD = "password";
+     static String MEMBER_PHONE = "phone";
+     static String MEMBER_EMAIL = "email";
+     static String MEMBER_ADDRESS = "address";
+     static String MEMBER_PHOTO = "photo";
 
-    //람다변환위해 필요
-    interface LoginService {public void login();}
-
+    //람다변환위해 필요한 인터페이스
+    static interface LoginService {public void perform();}
+    static interface ListService{public  ArrayList<?> perform();}
+    static interface DetailService{public Member perform();}
+    static interface UpdateService{public Member perform();}
+    static interface DeleteService{public Member perform();}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
                 new LoginService(){
                     @Override
-                    public void login() {
+                    public void perform() {
 //8.로그인 쿼리 실행.
                         if(mLogin.execute(sID,sPW)){
                             Toast.makeText(context,"로그인 성공",Toast.LENGTH_SHORT).show();
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                }.login();
+                }.perform();
 
             }
         });
