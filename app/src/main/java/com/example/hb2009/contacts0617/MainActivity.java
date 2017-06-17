@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     abstract : concrete 메소드와 추상메소드 함께 있음.
     */
 
-    public static interface ListService {public ArrayList<?> list();}
+   // public static interface ListService {public ArrayList<?> list();}
 
     public static class mySQLiteHelper extends SQLiteOpenHelper{
 

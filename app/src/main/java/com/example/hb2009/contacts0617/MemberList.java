@@ -27,7 +27,7 @@ import static com.example.hb2009.contacts0617.MainActivity.MEMBER_SEQ;
 import static com.example.hb2009.contacts0617.MainActivity.MEMBER_TABLE;
 
 public class MemberList extends AppCompatActivity {
-    interface ListService{public  ArrayList<?> list();}
+    interface ListService{public  ArrayList<?> perform();}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +35,14 @@ public class MemberList extends AppCompatActivity {
         setContentView(R.layout.member_list);
 
         final Context context=MemberList.this;
-      /* final MemberList memberList = new MemberList(context);*/
+       final getList getlist = new getList(context);
 
-        new ListService() {
+        ArrayList<MainActivity.Member> list =(ArrayList<MainActivity.Member>)new ListService() {
             @Override
-            public ArrayList<?> list() {
-                return null;
+            public ArrayList<?> perform() {
+                return getlist.execute();
             }
-        }.list();
+        }.perform();
 
         ListView listView= (ListView) findViewById(R.id.listView);
         listView.setAdapter(new MemberAdapter(context,list));
@@ -60,6 +60,7 @@ public class MemberList extends AppCompatActivity {
             }
         });
     }
+
     private abstract class ListQuery extends MainActivity.QueryFactory{
         MainActivity.mySQLiteHelper helper;
         public ListQuery(Context context) {
@@ -73,20 +74,18 @@ public class MemberList extends AppCompatActivity {
         }
     }
 
-
     private class getList extends ListQuery{
 
         public getList(Context context) {
             super(context);
         }
 
-
         @Override
         public SQLiteDatabase getDB() {
             return super.getDB();
         }
 
-        public ArrayList<MainActivity.Member> list(){
+        public ArrayList<MainActivity.Member> execute(){
             ArrayList<MainActivity.Member> list = new ArrayList<>();
 
             Cursor cursor=this.getDB().rawQuery(String.format("SELECT * FROM %s ;",MEMBER_TABLE),null);
