@@ -40,14 +40,11 @@ public class MemberDetail extends AppCompatActivity {
         TextView tv_addr = (TextView) findViewById(R.id.tv_addr);
         TextView tv_phone = (TextView) findViewById(R.id.tv_phone);
 
-
         Intent intent = this.getIntent();
         final String seq = intent.getExtras().getString("seq");
 
-       Log.d("넘어온값",seq);
-
         final getDetail detail = new getDetail(context);
-      MainActivity.Member m = new MainActivity.DeleteService() {
+      MainActivity.Member m = new MainActivity.DetailService() {
           @Override
           public MainActivity.Member perform() {
               return detail.execute(seq);
@@ -58,7 +55,9 @@ public class MemberDetail extends AppCompatActivity {
         tv_email.setText(m.email);
         tv_phone.setText(m.phone);
         tv_addr.setText(m.addr);
-        
+
+        final String spec =m.seq+"/"+m.email+"/"+m.name+"/"+m.phone+"/"+m.photo+"/"+m.addr;
+
         int profile = getResources().getIdentifier(this.getPackageName()+":drawable/"+m.photo,null,null);
         iv_photo.setImageDrawable(getResources().getDrawable(profile,context.getTheme()));
 
@@ -93,7 +92,7 @@ public class MemberDetail extends AppCompatActivity {
         findViewById(R.id.btn_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
 
@@ -121,6 +120,10 @@ public class MemberDetail extends AppCompatActivity {
         findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent = new Intent(MemberDetail.this,MemberUpdate.class);
+                intent.putExtra("spec",spec);
+                startActivity(intent);
 
             }
         });
@@ -173,10 +176,4 @@ public class MemberDetail extends AppCompatActivity {
             return m;
         }
     }
-
-
-
-
-
-
 }

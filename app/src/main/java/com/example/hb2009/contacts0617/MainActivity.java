@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     static interface LoginService {public void perform();}
     static interface ListService{public  ArrayList<?> perform();}
     static interface DetailService{public Member perform();}
-    static interface UpdateService{public Member perform();}
+    static interface UpdateService{public void perform();}
     static interface DeleteService{public Member perform();}
 
     @Override

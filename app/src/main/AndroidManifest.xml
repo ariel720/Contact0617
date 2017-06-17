@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MemberList" />
-        <activity android:name=".MemberDetail"></activity>
+        <activity android:name=".MemberDetail" />
+        <activity android:name=".MemberUpdate" />
+        <activity android:name=".MemberJoin"></activity>
     </application>
 
 </manifest>
