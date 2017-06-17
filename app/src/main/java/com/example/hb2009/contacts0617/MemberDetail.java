@@ -2,11 +2,10 @@ package com.example.hb2009.contacts0617;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
+
 import android.view.View;
 import android.widget.Toast;
->>>>>>> ariel0617
+
 
 public class MemberDetail extends AppCompatActivity {
 
@@ -14,8 +13,6 @@ public class MemberDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_detail);
-<<<<<<< HEAD
-=======
 
 
 
@@ -91,6 +88,5 @@ public class MemberDetail extends AppCompatActivity {
             }
         });
 
->>>>>>> ariel0617
     }
 }

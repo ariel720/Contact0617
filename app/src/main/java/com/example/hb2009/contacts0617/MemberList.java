@@ -38,17 +38,6 @@ public class MemberList extends AppCompatActivity {
         final Context context=MemberList.this;
        final getList getlist = new getList(context);
 
-<<<<<<< HEAD
-        ListView listView= (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new MemberAdapter(context,
-                (ArrayList<MainActivity.Member>)new ListService() {
-                    @Override
-                    public ArrayList<?> perform() {
-                        return getlist.execute();
-                    }
-                }.perform()
-        ));
-=======
         ArrayList<MainActivity.Member> list =(ArrayList<MainActivity.Member>)new ListService() {
             @Override
             public ArrayList<?> perform() {
@@ -58,7 +47,6 @@ public class MemberList extends AppCompatActivity {
 
         final ListView listView= (ListView) findViewById(R.id.listView);
         listView.setAdapter(new MemberAdapter(context,list));
->>>>>>> ariel0617
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
