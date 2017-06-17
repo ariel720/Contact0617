@@ -15,7 +15,9 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
+//1.DTO만들기
+    static class Member{int seq;String name,password,email,phone,addr,photo;}
+    //2. 쿼리공장 : sqliteDB가져옴.
     static abstract class QueryFactory{
         Context context;
         public QueryFactory(Context context) {this.context = context;}
@@ -32,15 +34,21 @@ public class MainActivity extends AppCompatActivity {
     public final static String MEMBER_ADDRESS = "address";
     public final static String MEMBER_PHOTO = "photo";
 
+    //람다변환위해 필요
     interface LoginService {public void login();}
-    static class Member{int seq;String name,password,email,phone,addr,photo;}
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         final Context context=MainActivity.this;
+
+        //6.로그인 쿼리가 있는 클래스 일단 가져옴.
         final MemberLogin mLogin = new MemberLogin(context);
+
+        //7.db만드는클래스 호출
+        mySQLiteHelper helper = new mySQLiteHelper(context); //DB만들기
 
         findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
 
@@ -51,15 +59,13 @@ public class MainActivity extends AppCompatActivity {
                 final String sID=inputID.getText().toString();
                 final String sPW=inputPW.getText().toString();
 
-                mySQLiteHelper helper = new mySQLiteHelper(context); //DB만들기
-
                 Log.d("넘어갈id",sID);
                 Log.d("넘어갈pw",sPW);
 
                 new LoginService(){
                     @Override
                     public void login() {
-
+//8.로그인 쿼리 실행.
                         if(mLogin.execute(sID,sPW)){
                             Toast.makeText(context,"로그인 성공",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(context,MemberList.class));
@@ -87,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     */
 
    // public static interface ListService {public ArrayList<?> list();}
-
+//3.테이블만들고 가라 데이터 집어넣고
     public static class mySQLiteHelper extends SQLiteOpenHelper{
 
         public mySQLiteHelper(Context context) {
@@ -121,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+//4.만들어진 db중에 읽을수 있는 db를 가져오게 하는 함수
     private abstract class LoginQuery extends  MainActivity.QueryFactory{
         SQLiteOpenHelper helper;
         public LoginQuery(Context context) {
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             return helper.getReadableDatabase();
         }
     }
-
+//5.위의 함수를 상속받고, id,pw를 받아서 로그인 쿼리를 실행.
     private class MemberLogin extends LoginQuery{
 
         public MemberLogin(Context context) {

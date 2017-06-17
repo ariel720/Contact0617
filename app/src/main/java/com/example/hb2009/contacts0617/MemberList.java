@@ -53,13 +53,14 @@ public class MemberList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> p, View v, int i, long l) {
                 Intent intent = new Intent(context,MemberDetail.class);
                 MainActivity.Member m = (MainActivity.Member) listView.getItemAtPosition(i);
-                
+
                 intent.putExtra("seq",m.seq);
                 intent.putExtra("seq",m.name);
                 intent.putExtra("seq",m.email);
                 intent.putExtra("seq",m.addr);
                 intent.putExtra("seq",m.phone);
                 intent.putExtra("seq",m.photo);
+
                 startActivity(intent);
             }
         });
@@ -71,6 +72,7 @@ public class MemberList extends AppCompatActivity {
         });
     }
 
+    //1.main에서 만들었던 그 sqlite db를 가져오고 있음.
     private abstract class ListQuery extends MainActivity.QueryFactory{
         MainActivity.mySQLiteHelper helper;
         public ListQuery(Context context) {
