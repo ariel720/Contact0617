@@ -128,7 +128,6 @@ public class MemberList extends AppCompatActivity {
                         m.photo=cursor.getString(cursor.getColumnIndex(MEMBER_PHOTO));
                         list.add(m);
                     }while(cursor.moveToNext());
-
                 }
             }else{
                 Log.d("등록된 회원이 ","없습니다.");
