@@ -63,11 +63,14 @@ public class MemberList extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long id) {
-                MainActivity.Member m = (MainActivity.Member) listView.getItemAtPosition(i);
+               final MainActivity.Member m = (MainActivity.Member) listView.getItemAtPosition(i);
+
+               final getDelete delete = new getDelete(context);
+
                 new AlertDialog.Builder(context).setTitle("DELETE").setMessage("진짜류?").setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        
+                        delete.execute(String.valueOf(m.seq));
                     }
                 }).show();
                 return true;

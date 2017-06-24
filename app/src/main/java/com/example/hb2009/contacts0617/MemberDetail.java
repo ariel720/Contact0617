@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hb2009.contacts0617.tools.Email;
+
 import java.util.ArrayList;
 
 import static com.example.hb2009.contacts0617.MainActivity.MEMBER_ADDRESS;
@@ -31,7 +33,7 @@ public class MemberDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_detail);
-        Context context = MemberDetail.this;
+        final Context context = MemberDetail.this;
 
         ImageView iv_photo = (ImageView) findViewById(R.id.iv_photo);
 
@@ -40,11 +42,13 @@ public class MemberDetail extends AppCompatActivity {
         TextView tv_addr = (TextView) findViewById(R.id.tv_addr);
         TextView tv_phone = (TextView) findViewById(R.id.tv_phone);
 
+        final Email mymail = new Email(context,this);
+
         Intent intent = this.getIntent();
         final String seq = intent.getExtras().getString("seq");
 
         final getDetail detail = new getDetail(context);
-      MainActivity.Member m = new MainActivity.DetailService() {
+        final MainActivity.Member m = new MainActivity.DetailService() {
           @Override
           public MainActivity.Member perform() {
               return detail.execute(seq);
@@ -71,7 +75,10 @@ public class MemberDetail extends AppCompatActivity {
         findViewById(R.id.btn_email).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MemberDetail.this,"mail1",Toast.LENGTH_SHORT).show();
+
+                mymail.sendEmail("ariel720@naver.com");
+               // mymail.sendEmail(m.email);
+
             }
         });
 
@@ -113,7 +120,7 @@ public class MemberDetail extends AppCompatActivity {
         findViewById(R.id.btn_album).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(context,AlbumActivity.class));
             }
         });
 
